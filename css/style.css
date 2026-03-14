@@ -14,7 +14,9 @@
     --gray-800: #262626;
     --gray-900: #171717;
     --shadow-soft-hover: 5px 10px 28px rgba(0, 0, 0, .6);
-    
+    --coffee-brown: #5e2414f1;
+    --latte: rgba(237, 216, 197, 0.201);
+
     /* Vivid Accent Colors - Used as bright highlights */
     --accent-warm-brown: #613d34;
     --accent-copper: #b26a3f;
@@ -55,8 +57,10 @@
     grid-auto-rows: 200px;
     gap: 1.5rem;
     grid-auto-flow: dense;
-    min-height: 400px; /* Ensure grid is visible */
-    background: rgba(0, 0, 0, 0.05); /* Subtle background to show grid area */
+    min-height: 400px;
+    /* Ensure grid is visible */
+    background: rgba(0, 0, 0, 0.05);
+    /* Subtle background to show grid area */
     padding: 1rem;
     border-radius: 12px;
 }
@@ -216,7 +220,7 @@
         grid-auto-rows: 180px;
         gap: 1rem;
     }
-    
+
     .photo-item.large,
     .photo-item.medium,
     .photo-item.wide,
@@ -225,19 +229,19 @@
         grid-row: span 1;
         border-radius: 16px;
     }
-    
+
     .photo-placeholder {
         font-size: 2rem;
     }
-    
+
     .photo-overlay {
         padding: 1rem;
     }
-    
+
     .photo-overlay h3 {
         font-size: 1rem;
     }
-    
+
     .photo-overlay p {
         font-size: 0.75rem;
     }
@@ -249,11 +253,37 @@
         grid-auto-rows: 150px;
         gap: 0.75rem;
     }
-    
+
     .photo-placeholder {
         font-size: 1.5rem;
     }
 }
+
+@media (max-width: 991.98px) {
+
+    .navbar-nav .nav-link {
+        padding: 0.8rem 0 0.8rem 2rem;
+
+    }
+}
+
+@media (max-width: 991.98px) {
+
+    .navbar-nav .nav-item:last-child {
+        margin-bottom: 1.5rem;
+    }
+
+}
+
+@media (max-width: 991.98px) {
+
+    .navbar-nav .nav-link {
+        display: inline-block;
+    }
+
+}
+
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 400;
@@ -264,12 +294,16 @@ body {
 
 /* Navigation */
 .navbar {
-    background: #5d423c56 !important;
+    background: var(--latte) !important;
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--gray-200);
     padding: 1.5rem 0;
     position: relative;
     transition: all 0.3s ease;
+    transition: transform 0.35s ease;
+}
+.navbar.nav-hidden {
+    transform: translateY(-100%);
 }
 
 /* Navigation accent border - Vivid gradient */
@@ -279,10 +313,16 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 6px;
-    background: linear-gradient(90deg, var(--accent-bright-copper));
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 2px 12px rgba(178, 106, 63, 0.4);
+    height: 4px !important;
+    background: linear-gradient(90deg, var(--accent-rust));
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out !important;
+
+}
+
+.navbar:hover::after {
+    box-shadow: none !important;
+    transition: all 0.3s ease-in-out !important;
 }
 
 /* Navbar scroll effect */
@@ -292,41 +332,52 @@ body {
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--primary-black) !important;
+    font-family: "League Gothic";
+    font-optical-sizing: auto;
+    font-size: 60px;
+    font-weight: 400 !important;
+    color: var(--coffee-brown);
     letter-spacing: -0.02em;
+    transition: all 0.3s ease-in-out !important;
+
+}
+
+.navbar-brand:hover {
+    color: var(--accent-rust) !important;
+    background: linear-gradient(135deg, var(--accent-copper), var(--accent-rust));
+    background-clip: text;
+    transition: all 0.3s ease-in-out !important;
 }
 
 .navbar-nav .nav-link {
-    color: var(--gray-600) !important;
-    font-weight: 400;
-    font-size: 0.95rem;
-    margin-left: 1.5rem;
+    color: rgb(97, 97, 97) !important;
+    font-weight: 200;
+    font-size: 20px;
+    margin-left: 25px;
     letter-spacing: -0.01em;
     position: relative;
     transition: all 0.3s ease;
+    padding: 5px;
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: var(--primary-black) !important;
+    color: var(--accent-bright-rust) !important;
     background: linear-gradient(135deg, var(--accent-copper), var(--accent-rust));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .navbar-nav .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
+    bottom: 0px !important;
+    left: 50%;
+    transform: translateX(-50%);
     width: 0;
-    height: 2px;
+    height: 1px;
     background: linear-gradient(90deg, var(--accent-copper), var(--accent-rust));
     transition: all 0.3s ease;
-    border-radius: 1px;
+    border-radius: 100px;
 }
 
 .navbar-nav .nav-link:hover::after,
@@ -335,13 +386,27 @@ body {
 }
 
 .navbar-toggler {
+    color: var(--accent-rust) !important;
     border: none;
     padding: 0.5rem;
     border-radius: 8px;
 }
 
 .navbar-toggler:focus {
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    color: var(--accent-rust) !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler:focus-visible {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: var(--accent-rust) !important;
+
 }
 
 /* Hero Section */
@@ -698,7 +763,7 @@ textarea.form-control {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -793,7 +858,7 @@ footer p {
         grid-auto-rows: 180px;
         gap: 1rem;
     }
-    
+
     .photo-item.large,
     .photo-item.medium,
     .photo-item.wide,
@@ -802,19 +867,19 @@ footer p {
         grid-row: span 1;
         border-radius: 16px;
     }
-    
+
     .photo-placeholder {
         font-size: 2rem;
     }
-    
+
     .photo-overlay {
         padding: 1rem;
     }
-    
+
     .photo-overlay h3 {
         font-size: 1rem;
     }
-    
+
     .photo-overlay p {
         font-size: 0.75rem;
     }
@@ -826,7 +891,7 @@ footer p {
         grid-auto-rows: 150px;
         gap: 0.75rem;
     }
-    
+
     .photo-placeholder {
         font-size: 1.5rem;
     }
@@ -836,7 +901,7 @@ footer p {
     .hero-title {
         font-size: 3rem;
     }
-    
+
     .navbar-nav .nav-link {
         margin-left: 1rem;
     }
@@ -846,17 +911,17 @@ footer p {
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .section-title {
         font-size: 1.8rem;
     }
-    
+
     .image-placeholder {
         width: 250px;
         height: 250px;
         font-size: 3rem;
     }
-    
+
     .portfolio-item:nth-child(3n+1),
     .portfolio-item:nth-child(3n+2) {
         aspect-ratio: 1;
@@ -867,16 +932,17 @@ footer p {
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .hero {
         padding: 100px 0 60px;
     }
-    
+
     .portfolio-section {
         padding: 3rem 0;
     }
-    
-    #about, #contact {
+
+    #about,
+    #contact {
         padding: 3rem 0;
     }
 }
@@ -896,6 +962,7 @@ html {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

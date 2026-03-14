@@ -87,12 +87,12 @@ const lightboxTitle = document.getElementById('lightboxTitle');
 function renderPortfolio(data, gridElement) {
     console.log('Rendering portfolio to:', gridElement);
     gridElement.innerHTML = '';
-    
+
     data.forEach((item, index) => {
         const photoItem = document.createElement('div');
         photoItem.className = 'photo-item';
         photoItem.style.animationDelay = `${index * 0.1}s`;
-        
+
         // Create different sizes for organic layout
         if (index % 8 === 0) {
             photoItem.classList.add('large');
@@ -105,7 +105,7 @@ function renderPortfolio(data, gridElement) {
         } else {
             photoItem.classList.add('small');
         }
-        
+
         photoItem.innerHTML = `
             <div class="photo-placeholder">
                 <i class="fas ${item.icon}"></i>
@@ -118,13 +118,13 @@ function renderPortfolio(data, gridElement) {
                 <p>${item.description}</p>
             </div>
         `;
-        
+
         photoItem.addEventListener('click', () => openLightbox(item));
         gridElement.appendChild(photoItem);
-        
+
         console.log(`Added photo item ${index}:`, photoItem.className);
     });
-    
+
     console.log('Finished rendering portfolio items');
 }
 
@@ -139,32 +139,32 @@ function openLightbox(item) {
 // Contact form handling
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData(contactForm);
     const name = formData.get('name');
     const email = formData.get('email');
     const message = formData.get('message');
-    
+
     // Simple form validation
     if (!name || !email || !message) {
         alert('Please fill in all fields.');
         return;
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert('Please enter a valid email address.');
         return;
     }
-    
+
     // Simulate form submission
     const submitBtn = contactForm.querySelector('.submit-btn');
     const originalText = submitBtn.textContent;
-    
+
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
-    
+
     setTimeout(() => {
         alert('Thank you for your message! I will get back to you soon.');
         contactForm.reset();
@@ -177,22 +177,22 @@ contactForm.addEventListener('submit', (e) => {
 function updateActiveLink() {
     const sections = ['home', 'film', 'stills', 'about', 'contact'];
     const scrollPosition = window.scrollY + 100;
-    
+
     sections.forEach(sectionId => {
         const section = document.getElementById(sectionId);
         const link = document.querySelector(`a[href="#${sectionId}"]`);
-        
+
         if (section && link) {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            
+
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
             }
         }
     });
-    
+
     // Add scroll effect to navbar using Bootstrap classes
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {
@@ -208,7 +208,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
         e.preventDefault();
         const targetId = link.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
-        
+
         if (targetElement) {
             const offsetTop = targetElement.offsetTop - 80; // Account for fixed navbar
             window.scrollTo({
@@ -223,54 +223,54 @@ document.querySelectorAll('.nav-link').forEach(link => {
 function initializePortfolio() {
     console.log('Film grid element:', filmGrid);
     console.log('Stills grid element:', stillsGrid);
-    
+
     // Render portfolio items
     renderPortfolio(filmData, filmGrid);
     renderPortfolio(stillsData, stillsGrid);
-    
+
     console.log('Portfolio items rendered');
-    
+
     // Add scroll event listener for navigation
     window.addEventListener('scroll', updateActiveLink);
-    
+
     // Initial active link update
     updateActiveLink();
-    
+
     // Add Bootstrap scrollspy functionality
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
+        link.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-2px)';
         });
-        
-        link.addEventListener('mouseleave', function() {
+
+        link.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0)';
         });
     });
-    
+
     // Add portfolio item hover effects - but only if they exist
     setTimeout(() => {
         const portfolioItems = document.querySelectorAll('.photo-item');
         console.log('Found portfolio items:', portfolioItems.length);
-        
+
         portfolioItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
+            item.addEventListener('mouseenter', function () {
                 this.style.transform = 'translateY(-8px) scale(1.02)';
                 this.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
             });
-            
-            item.addEventListener('mouseleave', function() {
+
+            item.addEventListener('mouseleave', function () {
                 this.style.transform = 'translateY(0) scale(1)';
                 this.style.boxShadow = 'none';
             });
         });
-        
+
         // Add intersection observer for fade-in animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -279,7 +279,7 @@ function initializePortfolio() {
                 }
             });
         }, observerOptions);
-        
+
         // Observe portfolio items
         portfolioItems.forEach(item => {
             item.style.opacity = '0';
@@ -294,4 +294,27 @@ function initializePortfolio() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Initializing portfolio...');
     initializePortfolio();
+});
+
+// Navbar hide on scroll
+let lastScroll = 0;
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll <= 0) {
+        navbar.classList.remove("nav-hidden");
+        return;
+    }
+
+    if (currentScroll > lastScroll && currentScroll > 100) {
+        navbar.classList.add("nav-hidden");
+    } else {
+        navbar.classList.remove("nav-hidden");
+    }
+
+    lastScroll = currentScroll;
+
 });
