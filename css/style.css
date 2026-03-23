@@ -119,11 +119,50 @@ body {
 
 /* FILMS */
 
-.divisao-materials{
+.divisao-materials {
     font-size: 20px;
     color: var(--coffee-brew);
     letter-spacing: -0.05em;
     font-weight: 500;
+    overflow: hidden !important;
+}
+
+.divisao-materials {
+    position: relative;
+}
+
+.divisao-materials::after {
+    content: "";
+    position: absolute;
+
+    bottom: 2px;
+    left: 50%;
+
+    width: calc(100% - var(--bs-gutter-x));
+    height: 1px;
+
+    background-color: var(--coffee-brew);
+
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+
+    animation: abrirLinha 1.8s cubic-bezier(0.66, 0.03, 0.04, 1) forwards;
+    overflow: hidden !important;
+}
+
+@keyframes abrirLinha {
+    to {
+        transform: translateX(-50%) scaleX(1);
+    }
+}
+
+.link-films {
+    background-color: rgb(255, 252, 247);
+    color: var(--coffee-brew);
+    padding: 20px 0;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
 }
 
 
@@ -187,9 +226,3 @@ body {
     font-weight: 300;
     text-decoration: none !important;
 }
-
-
-
-
-
-
