@@ -266,11 +266,6 @@ a {
     transition: transform 0.22s ease, box-shadow 0.22s ease, color 0.22s ease;
 }
 
-.link-films:hover {
-    color: var(--accent-rust);
-    transform: translateY(-3px);
-    box-shadow: 0 14px 28px rgba(59, 22, 12, 0.08);
-}
 
 .films-note {
     margin: 1.5rem auto 0;
