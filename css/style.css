@@ -256,7 +256,7 @@ a {
     align-items: center;
     justify-content: center;
     min-height: 78px;
-    padding: 1rem 1.25rem;
+    padding: -3rem 0.25rem;
     border-radius: 999px;
     color: var(--coffee-brew);
     text-decoration: none;
