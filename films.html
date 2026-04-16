@@ -4,113 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>films | theo nogueira</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Gothic:wdth@75..100&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="icon" type="image/png" href="../assets/icons/T.png">
-
-    <!-- Seu CSS -->
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
-
     <div class="container main-container">
-
-        <!-- HEADER -->
-
-        <header class="mx-auto col-11 col-lg-12 d-flex justify-content-between align-items-center py-4">
-
+        <header class="site-header reveal-up delay-1">
             <div>
-                <a class="theo-brand" href="home.html" type="button">theo nogueira</a>
+                <a class="theo-brand" href="home.html">theo nogueira</a>
                 <div class="site-subtitle">film director</div>
             </div>
 
-            <nav class="d-flex align-items-center">
+            <nav class="site-nav">
                 <a class="nav-link" href="home.html">home</a>
                 <a class="nav-link" href="films.html">films</a>
                 <a class="nav-link" href="about.html">about</a>
                 <a class="nav-link" href="contact.html">contact</a>
             </nav>
-
         </header>
+
+        <main class="site-section films-page">
+            <div class="films-header reveal-up delay-2">
+                <p class="section-kicker">film categories</p>
+                <h1 class="section-title">films</h1>
+            </div>
+
+            <section class="divisao-materials reveal-up delay-3" aria-label="Film categories">
+                <a class="link-films" href="#">narrative</a>
+                <a class="link-films" href="#">commercial</a>
+            </section>
+
+            <p class="films-note reveal-up delay-4">
+                A structured selection of projects across story-led work and branded commissions, presented with the
+                same visual rhythm as the rest of the portfolio.
+            </p>
+        </main>
+
+        <footer class="footer">
+            <div class="social">
+                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://www.vimeo.com/" target="_blank" rel="noreferrer">
+                    <i class="bi bi-vimeo"></i>
+                </a>
+            </div>
+
+            <div class="footer-email">
+                <a class="email" href="mailto:theonogueira@gmail.com">theonogueira@gmail.com</a>
+            </div>
+        </footer>
     </div>
 
-    <!-- HERO -->
-    <div class="container">
-        <div class="row justify-content-center text-center">
-            <h1 class="hero">films</h1>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row justify-content-center text-center mt-5 divisao-materials">
-            <div class="link-films btn col-6">narrative</div>
-            <div class="link-films btn col-6">commercial</div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-</body>
-
-
-
-
-
-
-
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-    <div class="social">
-
-        <a href="https://www.instagram.com/" target="_blank">
-            <i class="bi bi-instagram"></i>
-        </a>
-
-        <a href="https://www.vimeo.com/" target="_blank">
-            <i class="bi bi-vimeo"></i>
-        </a>
-
-    </div>
-
-    <div class="footer-email mb-5">
-
-        <a class="email" href="mailto:theonogueira@gmail.com" type="email">
-            theonogueira@gmail.com
-        </a>
-
-    </div>
-
-</footer>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
