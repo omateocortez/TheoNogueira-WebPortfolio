@@ -33,6 +33,9 @@ body {
     background: var(--page-bg);
     color: var(--coffee-brown);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 106vh;
 }
 
 img {
@@ -47,6 +50,7 @@ a {
     max-width: var(--container-width);
     margin-top: 42px;
     padding-inline: 20px;
+    flex: 1;
 }
 
 .site-header {
@@ -70,7 +74,7 @@ a {
 .site-subtitle {
     margin-top: 2px;
     font-size: 15px;
-    letter-spacing: 0.35em;
+    letter-spacing: 0.225em;
     font-weight: 300;
     color: var(--coffee-brew);
 }
@@ -115,6 +119,19 @@ a {
     margin: 0;
     font-family: "League Gothic", sans-serif;
     font-size: clamp(3.6rem, 10vw, 6rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--coffee-brown);
+}
+
+.subsection-title {
+    margin-block-start: 40px;
+    margin-block-start: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "League Gothic", sans-serif;
+    font-size: 50px;
     line-height: 0.92;
     letter-spacing: 0.02em;
     color: var(--coffee-brown);
@@ -216,6 +233,7 @@ a {
 
 .films-page {
     padding-top: 1rem;
+    padding-bottom: 10px !important;
 }
 
 .films-header {
@@ -226,7 +244,7 @@ a {
 .divisao-materials {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
-    position: relative;       
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -299,6 +317,17 @@ a {
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: #e9e3dc;
+}
+
+.hero-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #e9e3dc;
+    border-start-start-radius: 50px;
+    border-end-end-radius: 50px;
+    border-start-end-radius: 10px;
+    border-end-start-radius: 10px;
 }
 
 .video-frame iframe,
@@ -569,8 +598,9 @@ a {
     flex-direction: column;
     align-items: center;
     gap: 0.15rem;
-    padding: -1rem 0 6.75rem !important;
     text-align: center;
+    margin-top: auto;
+    margin-bottom: 10px !important;
 }
 
 .social {
