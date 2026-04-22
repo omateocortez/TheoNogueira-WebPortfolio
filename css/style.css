@@ -137,6 +137,10 @@ a {
     color: var(--coffee-brown);
 }
 
+.scroll-target {
+    scroll-margin-top: 110px;
+}
+
 .reveal-up {
     opacity: 0;
     animation: revealUp 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
