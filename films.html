@@ -21,18 +21,27 @@
 <body>
     <div class="site-shell">
         <div class="container main-container">
-            <header class="site-header reveal-soft delay-1">
+            <header class="site-header navbar navbar-expand-lg reveal-soft delay-1">
                 <div class="brand-block">
                     <a class="theo-brand" href="home.html">theo nogueira</a>
                     <div class="site-subtitle">director / writer</div>
                 </div>
 
-                <nav class="site-nav" aria-label="Main navigation">
-                    <a class="nav-link" href="home.html">home</a>
-                    <a class="nav-link" href="films.html" aria-current="page">film</a>
-                    <a class="nav-link" href="about.html">about</a>
-                    <a class="nav-link" href="contact.html">contact</a>
-                </nav>
+                <button class="nav-toggle navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                </button>
+
+                <div class="site-nav-panel collapse navbar-collapse" id="siteNav">
+                    <nav class="site-nav ms-lg-auto" aria-label="Main navigation">
+                        <a class="nav-link" href="home.html">home</a>
+                        <a class="nav-link" href="films.html" aria-current="page">film</a>
+                        <a class="nav-link" href="about.html">about</a>
+                        <a class="nav-link" href="contact.html">contact</a>
+                    </nav>
+                </div>
             </header>
 
             <main class="site-main">

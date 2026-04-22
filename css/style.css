@@ -15,7 +15,7 @@
     --radius-xl: 38px;
     --radius-lg: 28px;
     --radius-md: 20px;
-    --container: 1120px;
+    --container: 1450px;
     --section-space: clamp(3.75rem, 8vw, 6.5rem);
     --gutter: clamp(1rem, 2vw, 1.5rem);
 }
@@ -68,6 +68,8 @@ a {
     align-items: center;
     gap: 2rem;
     padding: 0 0 1rem;
+    background: transparent;
+    border: 0;
 }
 
 .brand-block {
@@ -100,6 +102,71 @@ a {
     flex-wrap: wrap;
 }
 
+.site-nav-panel {
+    flex-grow: 0;
+}
+
+.nav-toggle {
+    display: none;
+    width: 58px;
+    height: 58px;
+    padding: 0;
+    border: 1px solid rgba(138, 74, 46, 0.55);
+    border-radius: 18px;
+    background: rgba(255, 253, 249, 0.12);
+    box-shadow: 0 12px 22px rgba(138, 74, 46, 0.12);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.nav-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(138, 74, 46, 0.22);
+}
+
+.nav-toggle:hover {
+    border-color: rgba(138, 74, 46, 0.08);
+    background: linear-gradient(135deg, var(--accent), #c98b69);
+    box-shadow: 0 16px 28px rgba(138, 74, 46, 0.18);
+    transform: translateY(-1px);
+}
+
+.nav-toggle-bar {
+    width: 22px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--accent);
+    transition: transform 0.4s ease, opacity 0.4s ease, background 0.4s ease;
+}
+
+.nav-toggle:hover .nav-toggle-bar {
+    background: #fffdf9;
+}
+
+.nav-toggle:not(.collapsed) {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--accent), #c98b69);
+    box-shadow: 0 16px 30px rgba(138, 74, 46, 0.2);
+}
+
+.nav-toggle:not(.collapsed) .nav-toggle-bar {
+    background: #fffdf9;
+}
+
+.nav-toggle:not(.collapsed) .nav-toggle-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle:not(.collapsed) .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle:not(.collapsed) .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
 .nav-link {
     position: relative;
     margin: 0;
@@ -107,7 +174,7 @@ a {
     font-size: 0.95rem;
     text-decoration: none;
     color: var(--ink-soft);
-    transition: color 0.24s ease, transform 0.24s ease;
+    transition: color 0.4s ease, transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .nav-link::after {
@@ -120,7 +187,7 @@ a {
     background: currentColor;
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform 0.24s ease;
+    transition: transform 0.4s ease;
 }
 
 .nav-link:hover,
@@ -153,7 +220,7 @@ a {
 .section-title {
     margin: 0;
     font-family: "League Gothic", sans-serif;
-    font-size: clamp(4rem, 10vw, 7rem);
+    font-size: clamp(3rem, 5vw, 6em);
     line-height: 0.88;
     letter-spacing: 0.02em;
     text-transform: lowercase;
@@ -376,7 +443,7 @@ a {
 
 .home-copy p {
     margin: 0;
-    line-height: 1.85;
+    line-height: 1.65;
     color: var(--ink-soft);
 }
 
@@ -890,13 +957,60 @@ a {
     }
 
     .site-header {
-        flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .brand-block {
+        margin-right: auto;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .site-nav-panel {
+        width: 100%;
+        margin-top: 0.85rem;
+        border: 1px solid rgba(138, 74, 46, 0.18);
+        border-radius: 24px;
+        background:
+            linear-gradient(180deg, rgba(255, 248, 240, 0.96), rgba(247, 236, 226, 0.96)),
+            linear-gradient(135deg, rgba(185, 139, 114, 0.16), transparent 46%);
+        box-shadow: 0 18px 34px rgba(44, 17, 9, 0.08);
+        overflow: hidden;
     }
 
     .site-nav {
-        gap: 1rem;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.55rem;
+        padding: 0.9rem;
+        justify-content: center;
+    }
+
+    .site-nav .nav-link {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        border-radius: 16px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--ink);
+        box-shadow: 0 10px 24px rgba(44, 17, 9, 0.06);
+    }
+
+    .site-nav .nav-link::after {
+        display: none;
+    }
+
+    .site-nav .nav-link:hover,
+    .site-nav .nav-link[aria-current="page"] {
+        transform: translateY(-1px);
+        background: linear-gradient(135deg, rgba(138, 74, 46, 0.12), rgba(201, 139, 105, 0.22));
+        color: var(--accent);
+        box-shadow: 0 16px 28px rgba(44, 17, 9, 0.08);
     }
 
     .home-grid,
@@ -930,10 +1044,10 @@ a {
         padding: 2.9rem 0;
     }
 
-    .site-nav {
-        width: 100%;
-        justify-content: space-between;
-        gap: 0.75rem;
+    .nav-toggle {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
     }
 
     .hero-img {
