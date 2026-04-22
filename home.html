@@ -14,73 +14,102 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="icon" type="image/png" href="../assets/icons/T.png">
+    <link rel="icon" type="image/png" href="assets/icons/T.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="container main-container">
-        <header class="site-header reveal-up delay-1">
-            <div>
-                <a class="theo-brand" href="home.html">theo nogueira</a>
-                <div class="site-subtitle">director/writer</div>
-            </div>
-
-            <nav class="site-nav">
-                <a class="nav-link" href="home.html">home</a>
-                <a class="nav-link" href="films.html">film</a>
-                <a class="nav-link" href="about.html">about</a>
-                <a class="nav-link" href="contact.html">contact</a>
-            </nav>
-        </header>
-
-        <main class="site-section home-hero">
-
-            <div id="heroCarousel" class="carousel slide carousel-fade reveal-up delay-3">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="../assets/imgs/praca.jpeg" alt="Cinematic still from Theo Nogueira portfolio"
-                            class="hero-img">
-                    </div>
-
-                    <div class="carousel-item">
-                        <img src="../assets/imgs/theo.jpeg" alt="Portrait of Theo Nogueira" class="hero-img">
-                    </div>
-
-                    <div class="carousel-item">
-                        <img src="../assets/imgs/theoProfile.jpeg" alt="Profile still of Theo Nogueira"
-                            class="hero-img">
-                    </div>
+    <div class="site-shell">
+        <div class="container main-container">
+            <header class="site-header reveal-soft delay-1">
+                <div class="brand-block">
+                    <a class="theo-brand" href="home.html">theo nogueira</a>
+                    <div class="site-subtitle">director / writer</div>
                 </div>
 
-                <button class="carousel-control-prev arrow arrow-left" type="button" data-bs-target="#heroCarousel"
-                    data-bs-slide="prev" aria-label="Previous slide">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
+                <nav class="site-nav" aria-label="Main navigation">
+                    <a class="nav-link" href="home.html" aria-current="page">home</a>
+                    <a class="nav-link" href="films.html">film</a>
+                    <a class="nav-link" href="about.html">about</a>
+                    <a class="nav-link" href="contact.html">contact</a>
+                </nav>
+            </header>
 
-                <button class="carousel-control-next arrow arrow-right" type="button" data-bs-target="#heroCarousel"
-                    data-bs-slide="next" aria-label="Next slide">
-                    <i class="bi bi-chevron-right"></i>
-                </button>
-            </div>
+            <main class="site-main">
+                <section class="site-section home-hero">
+                    <div class="home-grid">
+                        <div class="hero-stage reveal-soft delay-2">
+                            <div id="heroCarousel" class="carousel slide carousel-fade">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="assets/imgs/praca.jpeg" alt="Cinematic still from Theo Nogueira portfolio"
+                                            class="hero-img">
+                                    </div>
 
+                                    <div class="carousel-item">
+                                        <img src="assets/imgs/theo.jpeg" alt="Portrait of Theo Nogueira" class="hero-img">
+                                    </div>
 
-        </main>
+                                    <div class="carousel-item">
+                                        <img src="assets/imgs/theoProfile.jpeg" alt="Profile still of Theo Nogueira"
+                                            class="hero-img">
+                                    </div>
+                                </div>
 
-        <footer class="footer">
-            <div class="social">
-                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
-                    <i class="bi bi-instagram"></i>
-                </a>
-                <a href="https://www.vimeo.com/" target="_blank" rel="noreferrer">
-                    <i class="bi bi-vimeo"></i>
-                </a>
-            </div>
+                                <button class="carousel-control-prev arrow arrow-left" type="button"
+                                    data-bs-target="#heroCarousel" data-bs-slide="prev" aria-label="Previous slide">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
 
-            <div class="footer-email">
-                <a class="email" href="mailto:theonogueira@gmail.com">theonogueira@gmail.com</a>
-            </div>
-        </footer>
+                                <button class="carousel-control-next arrow arrow-right" type="button"
+                                    data-bs-target="#heroCarousel" data-bs-slide="next" aria-label="Next slide">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <aside class="home-intro reveal-up delay-3">
+                            <div class="home-copy">
+                                <span class="home-stamp">tn</span>
+                                <p class="section-kicker">sao paulo / brazil</p>
+                                <h1 class="section-title">cinema driven by image, rhythm and intimacy.</h1>
+                                <p>
+                                    Theo Nogueira is a director and writer developing films that move between narrative,
+                                    branded work, and emotionally precise visual storytelling.
+                                </p>
+                                <p>
+                                    His practice is built around atmosphere, gesture, and composition, shaping frames that
+                                    feel cinematic, tactile, and human without losing clarity.
+                                </p>
+                            </div>
+
+                            <div class="home-meta">
+                                <img src="assets/imgs/theoProfile.jpeg" alt="Theo Nogueira portrait detail">
+                                <div class="home-meta-copy">
+                                    <p class="home-meta-label">current focus</p>
+                                    <p class="home-meta-text">narrative films, branded direction, and scripts under development.</p>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer">
+                <div class="social">
+                    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="https://www.vimeo.com/" target="_blank" rel="noreferrer" aria-label="Vimeo">
+                        <i class="bi bi-vimeo"></i>
+                    </a>
+                </div>
+
+                <div class="footer-email">
+                    <a class="email" href="mailto:theonogueira@gmail.com">theonogueira@gmail.com</a>
+                </div>
+            </footer>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
