@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theo Nogueira — Redesign Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --paper: #faf6ef;
+    --ink: #1e0f0a;
+    --ink-soft: rgba(30,15,10,0.65);
+    --ink-faint: rgba(30,15,10,0.38);
+    --accent: #7a3d24;
+    --accent-soft: #b98b72;
+    --panel: #1e0f0a;
+    --line: rgba(30,15,10,0.12);
+    --serif: Georgia, 'Times New Roman', serif;
+    --sans: 'Raleway', sans-serif;
+    --display: 'League Gothic', Impact, sans-serif;
+  }
+
+  body {
+    background: #e8e0d8;
+    font-family: var(--sans);
+    padding: 40px 24px 80px;
+  }
+
+  /* ── Label strip ── */
+  .preview-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .preview-header h1 {
+    font-family: var(--display);
+    font-size: 2.8rem;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .preview-header p {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+
+  /* ── Grid of page panels ── */
+  .pages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .page-panel {
+    background: var(--paper);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .page-label {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .page-label span { color: rgba(255,255,255,0.2); font-size: 0.6rem; }
+
+  /* ══════════════════════════════════════
+     SHARED NAV
+  ══════════════════════════════════════ */
+  .mock-nav {
+    height: 52px;
+    background: rgba(250,246,239,0.96);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+  }
+  .mock-nav-brand {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .mock-nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  .mock-nav-links a {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .mock-nav-links a.active {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+  .mock-nav-icons {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .mock-nav-icons svg { width: 16px; height: 16px; fill: var(--ink-faint); }
+
+  /* ══════════════════════════════════════
+     HOME PAGE
+  ══════════════════════════════════════ */
+  .home-hero {
+    position: relative;
+    height: 340px;
+    background: #2a1a12;
+    overflow: hidden;
+  }
+  .home-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+    filter: sepia(0.15) brightness(0.88);
+  }
+  .home-hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--paper) 0%, transparent 40%);
+  }
+  .home-hero-text {
+    position: absolute;
+    bottom: 32px;
+    left: 28px;
+    right: 28px;
+  }
+  .home-hero-date {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+  .home-hero-title {
+    font-family: var(--display);
+    font-size: 2.6rem;
+    line-height: 0.88;
+    color: #fff;
+    text-transform: lowercase;
+    max-width: 520px;
+  }
+  .home-hero-scroll {
+    position: absolute;
+    bottom: 20px;
+    right: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .scroll-arrow {
+    width: 18px;
+    height: 10px;
+    border-left: 1px solid rgba(255,255,255,0.35);
+    border-bottom: 1px solid rgba(255,255,255,0.35);
+    transform: rotate(-45deg);
+    margin-top: -4px;
+  }
+
+  .home-intro {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 32px;
+    padding: 36px 28px;
+    align-items: start;
+  }
+  .home-portrait {
+    aspect-ratio: 4/5;
+    background: #c4b5a8;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .home-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+  }
+  .home-bio-kicker {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+  .home-bio-text {
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .home-bio-current {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+
+  .home-work-strip {
+    padding: 0 28px 32px;
+  }
+  .home-work-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .home-work-title {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    color: var(--ink);
+    text-transform: lowercase;
+  }
+  .home-work-link {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft);
+    padding-bottom: 1px;
+  }
+  .home-work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .home-work-card {}
+  .home-work-thumb {
+    aspect-ratio: 16/9;
+    background: #c4b5a8;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .home-work-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+  }
+  .home-play-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-play-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-play-circle::after {
+    content: '';
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid rgba(255,255,255,0.9);
+    margin-left: 2px;
+  }
+  .home-card-title {
+    font-family: var(--display);
+    font-size: 1rem;
+    color: var(--ink);
+    text-transform: lowercase;
+    line-height: 1;
+  }
+  .home-card-type {
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 3px;
+  }
+
+  .home-cta-strip {
+    background: var(--panel);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .home-cta-text {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.45);
+  }
+  .home-cta-email {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--accent-soft);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .home-cta-icons {
+    display: flex;
+    gap: 12px;
+  }
+  .home-cta-icons svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.3); }
+
+  /* ══════════════════════════════════════
+     FILMS PAGE
+  ══════════════════════════════════════ */
+  .films-reel {
+    position: relative;
+    background: #2a1a12;
+    aspect-ratio: 16/9;
+    max-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .films-reel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: sepia(0.1);
+    position: absolute;
+    inset: 0;
+  }
+  .films-reel-play {
+    position: relative;
+    z-index: 2;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .films-reel-play::after {
+    content: '';
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 15px solid rgba(255,255,255,0.85);
+    margin-left: 4px;
+  }
+  .films-reel-label {
+    position: absolute;
+    bottom: 14px;
+    left: 20px;
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    z-index: 2;
+  }
+
+  .films-section-nav {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0 28px;
+    background: var(--paper);
+    position: sticky;
+    top: 52px;
+  }
+  .films-section-nav a {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-decoration: none;
+    padding: 12px 20px 12px 0;
+    margin-right: 16px;
+  }
+  .films-section-nav a.active {
+    color: var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    margin-bottom: -1px;
+  }
+  .films-section-nav-divider {
+    width: 1px;
+    height: 14px;
+    background: var(--line);
+    margin-right: 16px;
+  }
+
+  .films-section {
+    padding: 28px 28px 24px;
+  }
+  .films-section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .films-section-title {
+    font-family: var(--display);
+    font-size: 2rem;
+    color: var(--ink);
+    text-transform: lowercase;
+    line-height: 1;
+  }
+  .films-section-count {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .films-grid-narrative {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .films-grid-commercial {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .film-card-thumb {
+    aspect-ratio: 16/9;
+    background: #c4b5a8;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 7px;
+  }
+  .film-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) sepia(0.1);
+  }
+  .film-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(20,8,4,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .film-card-play {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .film-card-play::after {
+    content: '';
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid rgba(255,255,255,0.8);
+    margin-left: 2px;
+  }
+  .film-card-tall .film-card-thumb { aspect-ratio: 4/5; }
+  .film-card-title {
+    font-family: var(--display);
+    font-size: 1rem;
+    color: var(--ink);
+    text-transform: lowercase;
+    line-height: 1;
+  }
+  .film-card-meta {
+    font-family: var(--sans);
+    font-size: 0.57rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 3px;
+  }
+
+  /* ══════════════════════════════════════
+     ABOUT PAGE
+  ══════════════════════════════════════ */
+  .about-name-lockup {
+    padding: 32px 28px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .about-name {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 9vw, 5.5rem);
+    line-height: 0.84;
+    color: var(--ink);
+    text-transform: lowercase;
+    letter-spacing: 0.01em;
+  }
+
+  .about-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--line);
+    gap: 0;
+  }
+  .about-fact {
+    padding-right: 20px;
+  }
+  .about-fact + .about-fact {
+    padding-left: 20px;
+    border-left: 1px solid var(--line);
+  }
+  .about-fact-label {
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 5px;
+  }
+  .about-fact-value {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .about-body {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 28px;
+    padding: 28px 28px 32px;
+    align-items: start;
+  }
+  .about-portrait {
+    aspect-ratio: 4/5;
+    background: #9a8c80;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .about-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+  }
+  .about-copy-manifesto {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    line-height: 1.0;
+    color: var(--ink);
+    text-transform: lowercase;
+    margin-bottom: 16px;
+  }
+  .about-copy-body {
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  /* ══════════════════════════════════════
+     CONTACT PAGE
+  ══════════════════════════════════════ */
+  .contact-shell {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    min-height: 560px;
+  }
+  .contact-visual {
+    position: relative;
+    overflow: hidden;
+    background: #2a1a12;
+  }
+  .contact-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.2) brightness(0.9);
+    display: block;
+  }
+  .contact-panel {
+    background: var(--panel);
+    padding: 36px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-kicker {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 10px;
+  }
+  .contact-title {
+    font-family: var(--display);
+    font-size: 3rem;
+    color: #f5ede3;
+    text-transform: lowercase;
+    line-height: 0.9;
+    margin-bottom: 14px;
+  }
+  .contact-intro {
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: rgba(245,237,227,0.55);
+    margin-bottom: 24px;
+  }
+  .contact-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin-bottom: 22px;
+  }
+  .contact-email {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--accent-soft);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    display: inline-block;
+    border-bottom: 1px solid rgba(185,139,114,0.3);
+    padding-bottom: 2px;
+    margin-bottom: 20px;
+  }
+  .contact-avail-label {
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.22);
+    margin-bottom: 6px;
+  }
+  .contact-avail-text {
+    font-family: var(--serif);
+    font-size: 0.74rem;
+    line-height: 1.75;
+    color: rgba(245,237,227,0.45);
+    margin-bottom: 24px;
+  }
+  .contact-social {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-top: 4px;
+  }
+  .contact-social svg {
+    width: 17px;
+    height: 17px;
+    fill: rgba(255,255,255,0.28);
+  }
+
+  /* ══════════════════════════════════════
+     GLOBAL FOOTER
+  ══════════════════════════════════════ */
+  .mock-footer {
+    border-top: 1px solid var(--line);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mock-footer-left {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+  }
+  .mock-footer-center {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .mock-footer-right {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+  }
+
+  /* ══════════════════════════════════════
+     BOTTOM LABEL
+  ══════════════════════════════════════ */
+  .preview-footer {
+    text-align: center;
+    margin-top: 48px;
+  }
+  .preview-footer p {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(30,15,10,0.35);
+  }
+</style>
+</head>
+<body>
+
+<div class="preview-header">
+  <h1>Theo Nogueira</h1>
+  <p>Redesign Preview — All Pages</p>
+</div>
+
+<div class="pages-grid">
+
+  <!-- ════════════ HOME ════════════ -->
+  <div class="page-panel">
+    <div class="page-label">home.html <span>— hero / intro / work teaser</span></div>
+
+    <!-- Nav -->
+    <nav class="mock-nav">
+      <div class="mock-nav-brand">TN</div>
+      <div class="mock-nav-links">
+        <a href="#" class="active">home</a>
+        <a href="#">film</a>
+        <a href="#">about</a>
+        <a href="#">contact</a>
+      </div>
+      <div class="mock-nav-icons">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.122C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.48 4.807z"/></svg>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="home-hero">
+      <img class="home-hero-img" src="assets/imgs/praca.jpeg" alt="">
+      <div class="home-hero-gradient"></div>
+      <div class="home-hero-text">
+        <div class="home-hero-date">São Paulo, Brazil — 2024</div>
+        <div class="home-hero-title">cinema driven by image, rhythm and intimacy.</div>
+      </div>
+    </div>
+
+    <!-- Intro -->
+    <div class="home-intro">
+      <div class="home-portrait">
+        <img src="assets/imgs/theo.jpeg" alt="Theo Nogueira">
+      </div>
+      <div>
+        <div class="home-bio-kicker">the practice</div>
+        <p class="home-bio-text">Theo Nogueira is a director and writer working at the intersection of narrative cinema and branded visual storytelling. His work is shaped by atmosphere, gesture, and emotional precision.</p>
+        <p class="home-bio-text">Based in São Paulo, Theo approaches each project as a study in image and rhythm — committed to the kind of cinema that leaves something behind after the frame ends.</p>
+        <div class="home-bio-current">currently developing: narrative features, branded direction, and original scripts.</div>
+      </div>
+    </div>
+
+    <!-- Work teaser -->
+    <div class="home-work-strip">
+      <div class="home-work-header">
+        <div class="home-work-title">selected work</div>
+        <a href="#" class="home-work-link">view all →</a>
+      </div>
+      <div class="home-work-grid">
+        <div class="home-work-card">
+          <div class="home-work-thumb">
+            <img src="assets/imgs/praca.jpeg" alt="">
+            <div class="home-play-icon"><div class="home-play-circle"></div></div>
+          </div>
+          <div class="home-card-title">untitled short</div>
+          <div class="home-card-type">short / narrative</div>
+        </div>
+        <div class="home-work-card">
+          <div class="home-work-thumb">
+            <img src="assets/imgs/theoProfile.jpeg" alt="">
+            <div class="home-play-icon"><div class="home-play-circle"></div></div>
+          </div>
+          <div class="home-card-title">brand film</div>
+          <div class="home-card-type">commercial / branded</div>
+        </div>
+        <div class="home-work-card">
+          <div class="home-work-thumb">
+            <img src="assets/imgs/theo.jpeg" alt="">
+            <div class="home-play-icon"><div class="home-play-circle"></div></div>
+          </div>
+          <div class="home-card-title">music video</div>
+          <div class="home-card-type">commercial / music</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini CTA strip -->
+    <div class="home-cta-strip">
+      <div class="home-cta-text">get in touch</div>
+      <a href="mailto:theonogueira@gmail.com" class="home-cta-email">theonogueira@gmail.com</a>
+      <div class="home-cta-icons">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.122C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.48 4.807z"/></svg>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mock-footer">
+      <div class="mock-footer-left">© 2024 Theo Nogueira</div>
+      <div class="mock-footer-center">director / writer / são paulo</div>
+      <div class="mock-footer-right">↑ back to top</div>
+    </div>
+  </div>
+
+  <!-- ════════════ FILMS ════════════ -->
+  <div class="page-panel">
+    <div class="page-label">films.html <span>— reel / narrative / commercial</span></div>
+
+    <nav class="mock-nav">
+      <div class="mock-nav-brand">TN</div>
+      <div class="mock-nav-links">
+        <a href="#">home</a>
+        <a href="#" class="active">film</a>
+        <a href="#">about</a>
+        <a href="#">contact</a>
+      </div>
+      <div class="mock-nav-icons">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.122C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.48 4.807z"/></svg>
+      </div>
+    </nav>
+
+    <!-- Featured Reel -->
+    <div class="films-reel">
+      <img class="films-reel-img" src="assets/imgs/praca.jpeg" alt="">
+      <div class="films-reel-play"></div>
+      <div class="films-reel-label">reel — 2024</div>
+    </div>
+
+    <!-- Section nav -->
+    <div class="films-section-nav">
+      <a href="#" class="active">narrative</a>
+      <div class="films-section-nav-divider"></div>
+      <a href="#">commercial</a>
+    </div>
+
+    <!-- Narrative -->
+    <div class="films-section">
+      <div class="films-section-header">
+        <div class="films-section-title">narrative</div>
+        <div class="films-section-count">story-led work</div>
+      </div>
+      <div class="films-grid-narrative">
+        <div class="film-card-tall">
+          <div class="film-card-thumb">
+            <img src="assets/imgs/praca.jpeg" alt="">
+            <div class="film-card-overlay"><div class="film-card-play"></div></div>
+          </div>
+          <div class="film-card-title">untitled short</div>
+          <div class="film-card-meta">short film · 2024</div>
+        </div>
+        <div>
+          <div class="film-card-thumb">
+            <img src="assets/imgs/theo.jpeg" alt="">
+            <div class="film-card-overlay"><div class="film-card-play"></div></div>
+          </div>
+          <div class="film-card-title">the last afternoon</div>
+          <div class="film-card-meta">short film · 2023</div>
+          <div style="height:10px"></div>
+          <div class="film-card-thumb" style="margin-top:10px">
+            <img src="assets/imgs/theoProfile.jpeg" alt="">
+            <div class="film-card-overlay"><div class="film-card-play"></div></div>
+          </div>
+          <div class="film-card-title">em trânsito</div>
+          <div class="film-card-meta">short film · 2022</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commercial -->
+    <div class="films-section" style="padding-top:0">
+      <div class="films-section-header">
+        <div class="films-section-title">commercial</div>
+        <div class="films-section-count">commissioned work</div>
+      </div>
+      <div class="films-grid-commercial">
+        <div>
+          <div class="film-card-thumb">
+            <img src="assets/imgs/praca.jpeg" alt="">
+            <div class="film-card-overlay"><div class="film-card-play"></div></div>
+          </div>
+          <div class="film-card-title">brand film</div>
+          <div class="film-card-meta">branded · 2024</div>
+        </div>
+        <div>
+          <div class="film-card-thumb">
+            <img src="assets/imgs/theo.jpeg" alt="">
+            <div class="film-card-overlay"><div class="film-card-play"></div></div>
+          </div>
+          <div class="film-card-title">music video</div>
+          <div class="film-card-meta">music · 2024</div>
+        </div>
+        <div>
+          <div class="film-card-thumb">
+            <img src="assets/imgs/theoProfile.jpeg" alt="">
+            <div class="film-card-overlay"><div class="film-card-play"></div></div>
+          </div>
+          <div class="film-card-title">campaign</div>
+          <div class="film-card-meta">branded · 2023</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-footer">
+      <div class="mock-footer-left">© 2024 Theo Nogueira</div>
+      <div class="mock-footer-center">director / writer / são paulo</div>
+      <div class="mock-footer-right">↑ back to top</div>
+    </div>
+  </div>
+
+  <!-- ════════════ ABOUT ════════════ -->
+  <div class="page-panel">
+    <div class="page-label">about.html <span>— name / facts / portrait / manifesto</span></div>
+
+    <nav class="mock-nav">
+      <div class="mock-nav-brand">TN</div>
+      <div class="mock-nav-links">
+        <a href="#">home</a>
+        <a href="#">film</a>
+        <a href="#" class="active">about</a>
+        <a href="#">contact</a>
+      </div>
+      <div class="mock-nav-icons">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.122C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.48 4.807z"/></svg>
+      </div>
+    </nav>
+
+    <!-- Name lockup -->
+    <div class="about-name-lockup">
+      <div class="about-name">theo nogueira</div>
+    </div>
+
+    <!-- Facts strip -->
+    <div class="about-facts">
+      <div class="about-fact">
+        <div class="about-fact-label">based in</div>
+        <div class="about-fact-value">São Paulo, Brazil</div>
+      </div>
+      <div class="about-fact">
+        <div class="about-fact-label">working across</div>
+        <div class="about-fact-value">Narrative, branded films, writing</div>
+      </div>
+      <div class="about-fact">
+        <div class="about-fact-label">currently</div>
+        <div class="about-fact-value">Developing scripts &amp; original features</div>
+      </div>
+    </div>
+
+    <!-- Portrait + copy -->
+    <div class="about-body">
+      <div class="about-portrait">
+        <img src="assets/imgs/theoProfile.jpeg" alt="Theo Nogueira">
+      </div>
+      <div>
+        <div class="about-copy-manifesto">stories shaped through atmosphere, gesture and emotional precision.</div>
+        <p class="about-copy-body">Theo Nogueira is a director and writer based in São Paulo, working at the intersection of narrative cinema and image-led commercial work. Trained in the grammar of composition and performance, he approaches each project as an act of attention — to light, to space, to the weight of a glance.</p>
+        <p class="about-copy-body">His practice is built around the belief that the most honest cinema lives in the small gestures: the pause before a word, a hand left on a table, a room that holds more than its inhabitants. These are the moments he is after.</p>
+        <p class="about-copy-body">This portfolio represents the directing and writing work that is defining his practice — films still developing, commissions completed, and frames that felt true.</p>
+      </div>
+    </div>
+
+    <div class="mock-footer">
+      <div class="mock-footer-left">© 2024 Theo Nogueira</div>
+      <div class="mock-footer-center">director / writer / são paulo</div>
+      <div class="mock-footer-right">↑ back to top</div>
+    </div>
+  </div>
+
+  <!-- ════════════ CONTACT ════════════ -->
+  <div class="page-panel">
+    <div class="page-label">contact.html <span>— cinematic split / dark panel</span></div>
+
+    <nav class="mock-nav">
+      <div class="mock-nav-brand">TN</div>
+      <div class="mock-nav-links">
+        <a href="#">home</a>
+        <a href="#">film</a>
+        <a href="#">about</a>
+        <a href="#" class="active">contact</a>
+      </div>
+      <div class="mock-nav-icons">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.122C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.48 4.807z"/></svg>
+      </div>
+    </nav>
+
+    <div class="contact-shell">
+      <div class="contact-visual">
+        <img src="assets/imgs/praca.jpeg" alt="">
+      </div>
+      <div class="contact-panel">
+        <div class="contact-kicker">get in touch</div>
+        <div class="contact-title">contact</div>
+        <p class="contact-intro">The best way to reach Theo is directly by email. He is open to conversations about narrative films, branded work, and writing-driven collaborations.</p>
+        <div class="contact-divider"></div>
+        <a href="mailto:theonogueira@gmail.com" class="contact-email">theonogueira@gmail.com</a>
+        <div class="contact-avail-label">available for</div>
+        <p class="contact-avail-text">Narrative films, branded direction, music videos, and writing-driven collaborations.</p>
+        <div class="contact-divider"></div>
+        <div class="contact-social">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 0 0 3.501-3.122C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.48 4.807z"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="mock-footer">
+      <div class="mock-footer-left">© 2024 Theo Nogueira</div>
+      <div class="mock-footer-center">director / writer / são paulo</div>
+      <div class="mock-footer-right">↑ back to top</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="preview-footer">
+  <p>Redesign concept — theo nogueira web portfolio — 2024</p>
+</div>
+
+</body>
+</html>
