@@ -77,6 +77,7 @@
   const lightboxTitle = document.querySelector('.video-lightbox-title');
   const lightboxMeta = document.querySelector('.video-lightbox-meta');
   const lightboxDescription = document.querySelector('.video-lightbox-description');
+  const lightboxPlaceholder = document.querySelector('.video-lightbox-placeholder');
 
   const syncLightboxCopy = (trigger) => {
     if (!trigger) return;
@@ -94,27 +95,61 @@
   const openLightbox = (trigger) => {
     if (!lightbox) return;
     syncLightboxCopy(trigger);
+
+    const videoId = trigger.dataset.videoId;
+
+    if (lightboxPlaceholder && videoId) {
+      lightboxPlaceholder.innerHTML = `
+      <iframe
+        src="https://player.vimeo.com/video/${videoId}"
+        width="100%"
+        height="500"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    `;
+    }
+
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   };
   const closeLightbox = () => {
     if (!lightbox) return;
+
     lightbox.classList.remove('is-open');
     document.body.style.overflow = '';
-  };
 
-  lightboxTriggers.forEach(t => {
-    t.addEventListener('click', (e) => {
-      e.preventDefault();
-      openLightbox(t);
-    });
-    t.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+    if (lightboxPlaceholder) {
+      lightboxPlaceholder.innerHTML = '';
+    }
+  };
+  function bindLightboxTriggers() {
+    const triggers = document.querySelectorAll('[data-video-trigger]');
+
+    triggers.forEach(t => {
+      if (t.dataset.bound) return;
+
+      t.dataset.bound = "true";
+
+      t.addEventListener('click', (e) => {
         e.preventDefault();
         openLightbox(t);
-      }
+      });
+
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox(t);
+        }
+      });
     });
-  });
+  }
+
+  window.bindLightboxTriggers = bindLightboxTriggers;
+
+  bindLightboxTriggers();
+
   if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
   if (lightbox) lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
