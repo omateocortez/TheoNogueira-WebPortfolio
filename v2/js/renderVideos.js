@@ -40,9 +40,27 @@ async function renderVideos() {
         `;
     }
 
+    const commercialEl = document.getElementById("commercial-videos");
     const commercialSection = document.getElementById("commercial");
-    if (commercialSection && !data.commercial?.length) {
-        commercialSection.style.display = "none";
+
+    if (data.commercial?.length) {
+        commercialEl.innerHTML = data.commercial.map((video, i) => `
+        <button type="button" class="work-card film-card reveal${i > 0 ? ' delay-' + i : ''}"
+            data-video-trigger
+            data-video-id="${video.id}"
+            data-video-title="${video.title}"
+            data-video-meta="commercial"
+            data-video-description="Commercial work">
+            <div class="work-card-media">
+                <img src="${video.thumbnail}" alt="${video.title}">
+                <div class="work-card-overlay"><div class="play-circle"></div></div>
+            </div>
+            <div class="work-card-title">${video.title}</div>
+            <div class="work-card-meta">commercial</div>
+        </button>
+    `).join("");
+    } else {
+        if (commercialSection) commercialSection.style.display = "none";
     }
 
     window.bindLightboxTriggers();
