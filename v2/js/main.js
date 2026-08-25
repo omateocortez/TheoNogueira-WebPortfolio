@@ -5,6 +5,50 @@
 (() => {
   'use strict';
 
+  /* ── Theme toggle ── */
+  const themeKey = 'tn-theme';
+  const themeButtons = document.querySelectorAll('[data-theme-toggle]');
+
+  const getStoredTheme = () => {
+    try {
+      return localStorage.getItem(themeKey) === 'light' ? 'light' : 'dark';
+    } catch (error) {
+      return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+    }
+  };
+
+  const syncThemeButtons = (theme) => {
+    const isLight = theme === 'light';
+    themeButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(isLight));
+      button.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+    });
+  };
+
+  const applyTheme = (theme, persist = false) => {
+    const nextTheme = theme === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = nextTheme;
+
+    if (persist) {
+      try {
+        localStorage.setItem(themeKey, nextTheme);
+      } catch (error) {
+        console.warn('Theme preference could not be saved.', error);
+      }
+    }
+
+    syncThemeButtons(nextTheme);
+  };
+
+  applyTheme(getStoredTheme());
+
+  themeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const currentTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+      applyTheme(currentTheme === 'light' ? 'dark' : 'light', true);
+    });
+  });
+
   /* ── Nav scroll state ── */
   const header = document.querySelector('.site-header');
   if (header) {
@@ -30,6 +74,7 @@
         menu.classList.remove('is-open');
         toggle.classList.remove('is-open');
         document.body.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
