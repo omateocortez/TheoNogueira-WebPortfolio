@@ -12,17 +12,29 @@ router.use((req, res, next) => {
     next();
 });
 
+// Cada vitrine tem sua própria chave de cache: se o Vimeo falhar para uma
+// delas, a outra não é descartada nem volta para um valor antigo à toa — só
+// a vitrine afetada cai no fallback do cache. Se nem isso existir ainda
+// (primeira chamada falhando), devolve [] para aquela vitrine em vez de
+// derrubar a resposta inteira — o site precisa funcionar sem ela.
+async function fetchShowcase(key, albumId) {
+    try {
+        return await cache.getOrFetch(key, () =>
+            getShowcaseVideos(albumId, config.vimeoToken)
+        );
+    } catch (error) {
+        console.error(`[videos] falha ao obter vitrine "${key}": ${error.message}`);
+        return [];
+    }
+}
+
 router.get("/", async (req, res) => {
-    const data = await cache.getOrFetch("videos", async () => {
-        const [narrative, commercial] = await Promise.all([
-            getShowcaseVideos(config.vimeoAlbumNarrative, config.vimeoToken),
-            getShowcaseVideos(config.vimeoAlbumCommercial, config.vimeoToken),
-        ]);
+    const [narrative, commercial] = await Promise.all([
+        fetchShowcase("videos:narrative", config.vimeoAlbumNarrative),
+        fetchShowcase("videos:commercial", config.vimeoAlbumCommercial),
+    ]);
 
-        return { narrative, commercial };
-    });
-
-    res.json(data);
+    res.json({ narrative, commercial });
 });
 
 router.get("/recent", async (req, res) => {

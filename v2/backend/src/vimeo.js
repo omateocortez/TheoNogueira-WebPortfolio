@@ -2,6 +2,16 @@ const VIMEO_API_BASE = "https://api.vimeo.com";
 const REQUEST_TIMEOUT_MS = 8000;
 const VIDEO_FIELDS = "name,uri,pictures.sizes,privacy.view";
 
+// Marca o erro como "de Vimeo" para o error handler do Express responder de
+// forma consistente (502 + mensagem fixa), sem assumir que todo erro da
+// aplicação é sobre vídeo — ver src/app.js.
+function toVimeoError(message) {
+    const error = new Error(message);
+    error.publicStatus = 502;
+    error.publicMessage = "Não foi possível carregar os vídeos agora";
+    return error;
+}
+
 async function vimeoFetch(path, token, params = {}) {
     const url = new URL(`${VIMEO_API_BASE}${path}`);
     url.searchParams.set("fields", VIDEO_FIELDS);
@@ -9,14 +19,19 @@ async function vimeoFetch(path, token, params = {}) {
         url.searchParams.set(key, value);
     }
 
-    const response = await fetch(url, {
-        headers: { Authorization: `Bearer ${token}` },
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
+    let response;
+    try {
+        response = await fetch(url, {
+            headers: { Authorization: `Bearer ${token}` },
+            signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        });
+    } catch (cause) {
+        throw toVimeoError(`Falha ao conectar ao Vimeo em ${path}: ${cause.message}`);
+    }
 
     if (!response.ok) {
         const body = await response.text().catch(() => "");
-        const error = new Error(
+        const error = toVimeoError(
             `Vimeo respondeu ${response.status} para ${path}: ${body.slice(0, 300)}`
         );
         error.status = response.status;

@@ -1,6 +1,9 @@
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+const compression = require("compression");
+const morgan = require("morgan");
 
 const config = require("./config");
 const videosRouter = require("./routes/videos");
@@ -15,6 +18,14 @@ const PAGES = ["index.html", "films.html", "about.html", "contact.html"];
 function createApp() {
     const app = express();
     app.disable("x-powered-by");
+
+    // CSP fica desligado por ora: o site carrega Bootstrap via jsdelivr,
+    // fontes do Google Fonts e thumbnails/player do Vimeo, e montar uma
+    // política correta pra tudo isso é trabalho separado. Os outros
+    // headers do helmet (nosniff, frameguard, etc.) já valem a pena hoje.
+    app.use(helmet({ contentSecurityPolicy: false }));
+    app.use(compression());
+    app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 
     if (config.allowedOrigins.length > 0) {
         app.use("/api", cors({ origin: config.allowedOrigins }));
@@ -45,10 +56,15 @@ function createApp() {
     });
 
     // Express 5 encaminha rejeições de handlers async automaticamente,
-    // então nenhuma rota precisa de try/catch — tudo cai aqui.
+    // então nenhuma rota precisa de try/catch — tudo cai aqui. Erros do
+    // Vimeo chegam com publicStatus/publicMessage (ver src/vimeo.js) e
+    // caem como 502 com a mensagem certa; qualquer outro erro inesperado
+    // vira um 500 genérico em vez de mentir que é sobre vídeo.
     app.use((err, req, res, next) => {
         console.error(err);
-        res.status(502).json({ error: "Não foi possível carregar os vídeos agora" });
+        const status = err.publicStatus || 500;
+        const message = err.publicMessage || "Erro interno do servidor";
+        res.status(status).json({ error: message });
     });
 
     return app;
