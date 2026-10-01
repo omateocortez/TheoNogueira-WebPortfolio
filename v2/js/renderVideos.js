@@ -3,7 +3,10 @@ async function renderVideos() {
     if (!data) return;
 
     const narrativeEl = document.getElementById("narrative-videos");
-    if (narrativeEl && data.narrative?.length) {
+    const narrativeSection = document.getElementById("narrative");
+    const narrativeNavLink = document.querySelector('a[href="#narrative"]');
+
+    if (data.narrative?.length) {
         const videos = data.narrative;
         narrativeEl.innerHTML = `
             <button type="button" class="work-card film-card is-tall reveal"
@@ -38,6 +41,9 @@ async function renderVideos() {
                 `).join("")}
             </div>
         `;
+    } else {
+        if (narrativeSection) narrativeSection.style.display = "none";
+        if (narrativeNavLink) narrativeNavLink.style.display = "none";
     }
 
     const commercialEl = document.getElementById("commercial-videos");

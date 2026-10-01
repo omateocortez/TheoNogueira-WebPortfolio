@@ -1,6 +1,6 @@
 async function renderRecentVideos() {
     try {
-        const response = await fetch("http://localhost:3000/api/videos/recent");
+        const response = await fetch("/api/videos/recent");
         const videos = await response.json();
 
         const grid = document.querySelector(".home-work-grid");
