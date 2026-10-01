@@ -1470,6 +1470,20 @@ main {
 
 .films-grid.two-col {
   grid-template-columns: repeat(2, 1fr);
+  /* O destaque e a mini-grade ao lado raramente têm a mesma altura; sem
+     isso, o grid esticaria os dois pra bater com o lado mais alto. */
+  align-items: start;
+}
+
+/* Mini-grade dos vídeos ao lado do destaque. auto-fit + minmax faz ela se
+   ajustar sozinha: 1 vídeo sobra ocupa a largura toda (sem buraco do lado),
+   2+ formam colunas, e ela aperta pra 1 coluna em telas mais estreitas sem
+   precisar de media query própria. */
+.films-grid-rest {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.25rem) clamp(1rem, 2vw, 1.5rem);
+  align-content: start;
 }
 
 .film-card .work-card-media {
